@@ -7,7 +7,7 @@ const DIST_DIR = path.resolve(__dirname, 'dist')
 const SRC_DIR  = path.resolve(__dirname, 'src')
 
 const config = {
-	entry: SRC_DIR + '/app/index.js',
+	entry: ['whatwg-fetch', SRC_DIR + '/app/index.js'],
 	output: {
 		path: DIST_DIR + '/app',
 		filename: 'bundle.js',
@@ -43,7 +43,7 @@ const config = {
 			loaders: ['style-loader', 'css-loader', 'less-loader']
 		},
     {
-      test: /\.(woff|woff2|eot|ttf|otf|png|jpeg|jpg|svg)$/,
+      test: /\.(woff|woff2|eot|ttf|otf|png|jpeg|jpg|gif|svg)$/,
 			loader: "file-loader"
     }]
 	},

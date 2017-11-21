@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import Router from 'react-router';
+import { Link } from 'react-router-dom'
 import {Panel, Input, Button} from 'react-bootstrap';
 import { History } from 'history';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Signup from './Signup'
-export default class Login extends Component {
+import Logo from '../components/Logo.js'
+import AnimatedWrapper from '../HOCs/AnimatedWrapper.js'
+
+
+class LoginComponent extends Component {
 
   state = {
     email: '',
@@ -26,28 +30,36 @@ export default class Login extends Component {
     this.setState({password}) 
   }
 
+  componentDidMount() {
+      this.refs.emailInput.focus()
+  }
+
   render() {
     return(
-        <div className="login-page ng-scope ui-view"> 
-          <div className="row"> 
-            <div className="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4"> 
-              <img src={require("../../assets/images/flat-avatar.png")} className="user-avatar" /> 
-              <h1>Ani Theme <small>Free React.js Edition</small></h1> 
-              <form role="form" onSubmit={this.handleLogin} className="ng-pristine ng-valid"> 
-                <div className="form-content"> 
-                  <div className="form-group"> 
-                    <input type="email" className="form-control input-underline input-lg" onChange={this.handleEmailChange} value={this.state.email} placeholder="Email" /> 
-                  </div> 
-                  <div className="form-group"> 
-                    <input type="password" className="form-control input-underline input-lg" onChange={this.handlePasswordChange} value={this.state.password} placeholder="Password" /> 
-                  </div> 
-                </div> 
-                <button type="button" className="btn btn-white btn-outline btn-lg btn-rounded" onClick={() => this.props.history.push('/signup')} >Sign Up</button> 
-                <button type="submit" className="btn btn-white btn-outline btn-lg btn-rounded">Login</button> 
-              </form> 
-            </div> 
-          </div> 
-        </div> 
+      <div className="login-wrapper">
+        <div className="login-title">
+          <Logo width={100} height={40} className="login-logo" />
+          <h1>Techo Unido</h1>
+        </div>
+        <div className="login-form-container">
+          <form className="login-form">
+            <div className="login-input-container">
+              <label>email</label>
+              <input ref="emailInput" type="email" />
+            </div>
+            <div className="login-input-container">
+              <label>password</label>
+              <input type="password" pattern="^[A-Za-z0-9]{8,}"/>
+            </div>
+            <input className="login-form-btn" type="submit" value="LOG IN" />
+          </form>
+          <div className="helper-links">
+            <Link to="/" className="helper-link" >Home</Link>
+            <Link to="/" className="helper-link" >Olvidaster tu contraseña</Link>
+          </div>
+        </div>
+      </div>
     )
   }
 }
+export default AnimatedWrapper(LoginComponent)
