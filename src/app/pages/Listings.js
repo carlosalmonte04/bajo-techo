@@ -15,7 +15,6 @@ import AVAILABLE_PLACES from '../../assets/AVAILABLE_PLACES.js'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import LoadingGrid from '../components/LoadingGrid.js'
 import Listing from '../components/Listing.js'
-import Gridlist from '../components/Gridlist.js'
 
 class Listings extends Component {
 
