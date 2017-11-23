@@ -11,6 +11,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import '../assets/styles/App.css'
 import '../assets/styles/rc-slider.css';
+
 let rootReducer = combineReducers({uiReducer, listingsReducer})
 
 const store = createStore(rootReducer, applyMiddleware(thunk))

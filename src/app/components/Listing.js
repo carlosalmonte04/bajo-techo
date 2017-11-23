@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import FontIcon from 'material-ui/FontIcon';
 import Slider from 'react-slick'
 import SliderArrow from './SliderArrow.js'
+import toggleLoading from '../actions/ui/toggleLoading.js'
 
 const sliderSettings = {
   dots: true,
@@ -17,7 +19,7 @@ const sliderSettings = {
 }
 
 
-export default class Listing extends Component {
+class Listing extends Component {
 
 	state = {
 		imgShowing: this.props.listing.keyInfo.pictureUrl,
@@ -26,21 +28,31 @@ export default class Listing extends Component {
 		pictures: this.props.listing.keyInfo.pictures
 	}
 
+ handleListingClick = (e) => {
+    console.log("E", e.target)
+    if (e.target.tagName !== "I") {
+    	console.log("listing", this.props)
+    	this.props.toggleLoading(true)
+    	this.props.history.push(`/listings/show/${this.props.listing.keyInfo.id}`)
+    }
+  }
+
 	render() {
 		const picturesHTML = this.state.pictures.map((pictureId, i) => <div key={i}><img className="listing-img" src={this.state.imgUrlStructure + pictureId + '.jpg'} /> </div>)
 		const optionalInfo = this.props.listing.optionalInfo
 		const optionalInfoHTML = Object.keys(optionalInfo).map((title, i) => <span key={i} >{title}: {optionalInfo[title]}: </span>)
 		return (
-			<Paper style={style} zDepth={4} className="listing-container listing">
+			<Paper style={style} zDepth={4} className="listing-container listing" onClick={this.handleListingClick}>
 				<div className="info-container">
 					<div className="listing-status-wrapper">
 						<div className="listing-status-container">
 							<div className="listing-status mate-icon">
 								<i className="material-icons">perm_identity</i>{this.state.matesAmount}
 							</div>
+							{!!localStorage.getItem('token') ?
 							<div className="listing-status add-remove-icon">
 								<i className="material-icons">add</i>
-							</div>
+							</div> : null}
 						</div>
 					</div>
 					<Slider {...sliderSettings}>
@@ -71,3 +83,11 @@ const style = {
   textAlign: 'center',
   display: 'inline-block',
 };
+
+function mapDispatchToProps(dispatch) {
+	return {
+		toggleLoading: (bool) => dispatch(toggleLoading(bool))
+	}
+}
+
+export default connect(null, mapDispatchToProps)(Listing)

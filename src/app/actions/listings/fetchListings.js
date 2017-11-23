@@ -8,11 +8,11 @@ export default function fetchListings(locationId) {
 		if (locationId) { // special case for todos los sectores
 			dispatch(startProgressBar())
 		  dispatch(toggleLoading(true))
-return fetch(`${process.env.API_URL}/listings/${locationId}`)
+return fetch(`${process.env.API_URL}/listings/browse/${locationId}`)
  		   .then(res => res.json())
  		   .then(res => { console.log("RES!?", res); return res} )
 		   .then(response => {
-		  	 dispatch(setListingsOnState(response.listings))
+		  	 dispatch(setListingsOnState(response.listings, locationId))
 		  	 dispatch(toggleLoading(false))
 		  	 dispatch(completeProgressBar())
 		  })

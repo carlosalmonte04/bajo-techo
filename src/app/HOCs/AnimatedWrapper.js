@@ -22,12 +22,12 @@ const AnimatedWrapper = WrappedComponent => class AnimatedWrapper
   setTimeout(() => {return cb()}, 175);
  }
 
- componentDidMount() {
-     this.componentWillEnter(this.componentWillAppear)
- }
-
  componentWillUnmount() {
      this.componentWillLeave(() => {})
+ }
+
+ componentDidMount() {
+     this.componentWillEnter(this.componentWillAppear)
  }
 
  render() {
@@ -35,9 +35,9 @@ const AnimatedWrapper = WrappedComponent => class AnimatedWrapper
    opacity: Animated.template`${this.state.animate}`,
   };
   return (
-   <Animated.div style={style} className="animated-page-wrapper">
-    <WrappedComponent {...this.props} />
-   </Animated.div>
+    <Animated.div style={style} className="animated-page-wrapper">
+      <WrappedComponent {...this.props} />
+    </Animated.div>
   );
  }
 };

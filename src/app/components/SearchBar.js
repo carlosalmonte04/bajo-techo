@@ -37,7 +37,7 @@ class SearchBar extends Component {
 
 	render() {
 		const optionsList = this.state.locationOptions.filter(location => location.toLowerCase().includes(this.state.searchInput.toLowerCase()))
-		const optionsListHTML = optionsList.map((location, key) => <li key={key} id={location} className="option-container"> <Link to={`/listings/santiago/${location}`} className="option">{location}</Link></li>)
+		const optionsListHTML = optionsList.map((location, key) => <li key={key} id={location} className="option-container"> <Link to={`/listings/browse/santiago/${location}`} className="option">{location}</Link></li>)
 		return (
 		  <div className="row-wrap">
 		  	<Magnify className="icon" />
