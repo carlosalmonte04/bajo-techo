@@ -21,6 +21,22 @@ const config = {
     new Dotenv({
       path: './.env', // Path to .env file (this is the default) 
       systemvars: true
+    }),
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify("production"),
+      },
+    }),
+    new UglifyJsPlugin({
+      test: /\.js($|\?)/i,
+      cache: true,
+    }),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
     })
   ],
  module: {
