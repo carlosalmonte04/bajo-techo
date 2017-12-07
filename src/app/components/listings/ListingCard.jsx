@@ -30,10 +30,14 @@ class Listing extends Component {
   }
 
   toggleInterestStatus = (e) => {
-    const desiredValue = e.target.value
-    desiredValue === 'interesado'
-      ? this.props.interestListing(this.props.listing.keyInfo.id)
-      : this.props.disinterestListing(this.props.listing.keyInfo.id)
+    if (this.props.isLoggedIn) {
+      const desiredValue = e.target.value
+      desiredValue === 'interesado'
+        ? this.props.interestListing(this.props.listing.keyInfo.id)
+        : this.props.disinterestListing(this.props.listing.keyInfo.id)
+    } else {
+      alert('please log in')
+    }
   }
 
   render() { // Els = elements
@@ -141,7 +145,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    user: state.uiReducer.user
+    user: state.uiReducer.user,
+    isLoggedIn: state.uiReducer.isLoggedIn
   }
 }
 
